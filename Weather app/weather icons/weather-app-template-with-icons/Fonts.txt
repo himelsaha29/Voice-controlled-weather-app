@@ -1,0 +1,9 @@
+Fonts used in this design:
+
+Font: Ostrich Sans
+Author: Tyler Finck
+Url: http://www.fontsquirrel.com/fonts/ostrich-sans
+
+Font: Quicksand
+Author: Andrew Paglinawan
+Url: http://www.fontsquirrel.com/fonts/quicksand

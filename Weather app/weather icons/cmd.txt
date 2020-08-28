@@ -1,0 +1,91 @@
+ls --help
+
+windows
+
+Get-Help
+ls = Get-ChildItem
+pwd - prints current directory
+use '` ' for space
+history - for command run before
+ctrl-r - to search history of commands run before
+or use #..followed bycommand tab completion
+clear
+cp [file location] [dir location]
+cp *.jpg [dir location] - copies all files of type .jpg
+cp [dir] [dest dir] -Recurse -verbose (prints folder content)
+mv [file dir] [name the file is gonna be renamed to] - for renaming files
+mv [file location] [dir] - for moving, use * for multiple files
+rm [file location] (-Force)
+rm [folder location] (-Recurse)
+cat [file(small)] - opens a file and dumps the content into shell
+more [file(large)] - press enter to move by 1 line, space for 1 page at a time, q to exit
+cat [file] -Head 10 - first 10 lines, -Tail 10 for last 10
+start notepad++ [file]
+Select-String  [word to find] [file(s)]
+ls [dir] -Recurse -Filter [file types] - search for specific files within a directory
+echo(Write-Output) woof > [file] - prints woof in file
+>> for append
+cat [file] |(pipeline) Select-String st - only display those that has st
+2> changing std out to stderr
+$null
+Get -LocalUser
+net user [username] * - prompts for password
+net user [username] * /add (or /del) - add new user
+icacls [dir] /grant (or remove) Everyone - give permisdion to all members, or "[User]:(r/w)"
+Compress-Archive -Path [folder dir] [dest dir] - tom compress a folder
+taskkill /pid 5856 - kills notepad
+tasklist
+Get-Process (powershell)
+
+Register-PackageSource -Name chocolatey -ProviderName - install chocolatey
+Chocolatey -Location http://chocolatey.org/api/v2/
+
+Install-Package -Name vlc -Source chocolatey	- install app using chocolatey
+Get-Package -Name vlc - verify install
+
+Choco Uninstall GIMP - uninstall command using chocolatey
+
+ping [website] - to check if website is working well
+nslookup [website] - DNS lookup to get ip of website
+
+
+
+
+linux
+
+~/Desktop -> home/desktop
+use '\ ' for space
+history - for command run before
+ctrl-r - to search history of commands run before
+or use #..followed bycommand tab completion
+clear
+cp [file location] [dir location]
+cp *.jpg [dir location] - copies all files of type .jpg
+cp -r [dir] [dest dir]
+mv [file dir] [name the file is gonna be renamed to] - for renaming files
+mv [file location] [dir] - for moving, use * for multiple files
+rm [file location]
+rm [folder location] (-Recurse)
+cat [file]
+less [file] - similar to more in windows, up and down arrows to navigate, g to go to first line, G to go to last line, q to quit, /[word to search] to search for a word
+head [file] - by default shows first 10 lines
+tail [file] - last 10 lines
+grep [word to search] [file(s)]
+echo(Write-Output) woof > [file] - prints woof in file
+dev/null
+sudo su - substitute user
+passwd [username] - change password
+sudo useradd [username]
+sudo userdel [username]
+sudo dpkg -i appName.deb - install packages
+sudo dpkg -r appName
+dpgk -l - list all apps
+7z e [zipped file] - extracting zip file
+ps -x - show all processes
+sudo cat /var/log/syslog - view syslog
+
+
+windows and linux
+
+.. back
+../Desktop -> relative dir

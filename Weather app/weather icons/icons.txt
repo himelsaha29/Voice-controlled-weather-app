@@ -1,0 +1,10 @@
+sunny - 
+windy - 
+thunderstorm -
+fog -
+haze -
+cloudy
+partly cloudy
+rain -
+snow -
+clear
