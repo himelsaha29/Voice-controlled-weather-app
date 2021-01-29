@@ -7,6 +7,7 @@ import requests
 import tkinter as tk
 from tkinter import *
 from PIL import Image, ImageTk
+import text_to_speech as speech
 
 class voice:
     def __init__(self, window):
@@ -110,6 +111,7 @@ class voice:
                                     flag = True
                             title = title.rstrip() + ').'
                             print(').', end='')
+                            speech.speak(title, lang="en")   ##### FUCKING THREAD
                             break
                     else:
                         if not title == "Your internet connection seems broken. Fix it and try again later":
@@ -159,6 +161,15 @@ class voice:
         versionDisp.destroy()
         titles = tk.Label(window, bg='white', text=title)
         titles.configure(font=("DejaVu Sans", 15, "bold"))
+
+        def printit():
+            print(2)
+
+        button = tk.Button(window, text="Search for another city", command=printit)
+        button.configure(width=20, activebackground="#F04747", background="#43B581")
+        button_window = canvas.create_window(476.5, 470, anchor=S, window=button)
+
+
         label_window = canvas.create_window(953 / 2, 200 / 2, anchor=tk.N, window=titles)
         window.resizable(False, False)
 
