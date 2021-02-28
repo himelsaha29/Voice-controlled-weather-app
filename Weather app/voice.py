@@ -1,4 +1,5 @@
 import re
+import threading
 import speech_recognition
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen as uReq
@@ -19,10 +20,6 @@ class voice:
         with speech_recognition.Microphone() as source:
             print("Say something")
 
-            #titles = tk.Label(master=window, text=title)
-            #titles.configure(font=("DejaVu Sans", 15, "bold"))
-            #titles.pack()
-            #####################
             canvas = tk.Canvas(window, width=953, height=500)
             canvas.pack()
             img = ImageTk.PhotoImage(Image.open("953x500.png").resize((953, 500), Image.ANTIALIAS))
@@ -44,11 +41,14 @@ class voice:
             versionDisp = tk.Label(window, fg='black', text=version)
             versionDisp.configure(font=("DejaVu Sans", 8))
             label_window = canvas.create_window(953 / 2, 500 - 20, anchor=tk.N, window=versionDisp)
-
             window.resizable(False, False)
-            #####################
+
+
+            recognizer.adjust_for_ambient_noise(source, duration=1) # set the threshold to a good value automatically
+            #recognizer.energy_threshold = 3000 // Higher values mean that it will be less sensitive, which is useful if you are in a loud room.
 
             audio = recognizer.listen(source)
+
 
         try:
             words = recognizer.recognize_google(audio)
@@ -68,16 +68,7 @@ class voice:
             except:
                 title = "Your internet connection seems broken. Fix it and try again later"
 
-        '''
-        if matches:
-            print(f"Heyy, {matches[1]}.")
-        '''
 
-
-
-#req.close()
-#page_soup = soup(webpage, "html.parser")
-# print(page_soup.prettify())
         try:
             page_soup = soup(webpage.text, 'html.parser')
             temp = page_soup.find_all("div", {"class":"BNeawe iBp4i AP7Wnd"})
@@ -93,6 +84,10 @@ class voice:
             print("Oops, didn't catch that one, please try again.")
             title = "Oops, didn't catch that one, please try again."
         flag = False
+
+
+        def thrd():
+            speech.speak(title, lang="en")
 
         try:
             for i in temp:
@@ -111,7 +106,10 @@ class voice:
                                     flag = True
                             title = title.rstrip() + ').'
                             print(').', end='')
-                            speech.speak(title, lang="en")   ##### FUCKING THREAD
+
+                            p = threading.Thread(target=thrd)                   #start Text-to-Speech
+                            p.start()
+
                             break
                     else:
                         if not title == "Your internet connection seems broken. Fix it and try again later":
@@ -120,12 +118,8 @@ class voice:
         except Exception as e:
             if not title == "Your internet connection seems broken. Fix it and try again later":
                 title = "Not quite sure what you meant."
-        #titles.destroy()
-        ##############################
 
-        ################################
-        #canvas = tk.Canvas(window, width=953, height=500)
-        #canvas.pack()
+
 
         if "sunny" in title:
             img = ImageTk.PhotoImage(Image.open("sunny.png").resize((953, 500), Image.ANTIALIAS))
@@ -172,4 +166,7 @@ class voice:
 
         label_window = canvas.create_window(953 / 2, 200 / 2, anchor=tk.N, window=titles)
         window.resizable(False, False)
+
+
+
 
