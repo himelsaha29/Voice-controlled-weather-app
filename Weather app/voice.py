@@ -22,7 +22,7 @@ class voice:
 
             canvas = tk.Canvas(window, width=953, height=500)
             canvas.pack()
-            img = ImageTk.PhotoImage(Image.open("953x500.png").resize((953, 500), Image.ANTIALIAS))
+            img = ImageTk.PhotoImage(Image.open("base.png").resize((953, 500), Image.ANTIALIAS))
             canvas.background = img  # Keep a reference in case this code is put in a function.
             bg = canvas.create_image(0, 0, anchor=tk.NW, image=img)
 
@@ -87,7 +87,7 @@ class voice:
 
 
         def thrd():
-            speech.speak(title, lang="en")
+            speech.speak(title, lang="en", save=False)
 
         try:
             for i in temp:
@@ -107,7 +107,7 @@ class voice:
                             title = title.rstrip() + ').'
                             print(').', end='')
 
-                            p = threading.Thread(target=thrd)                   #start Text-to-Speech
+                            p = threading.Thread(target=thrd)                   #start Text-to-Speech using new Thread
                             p.start()
 
                             break
@@ -121,7 +121,9 @@ class voice:
 
 
 
-        if "sunny" in title:
+        if "clear" in title:
+            img = ImageTk.PhotoImage(Image.open("clear.png").resize((953, 500), Image.ANTIALIAS))
+        elif "sunny" in title:
             img = ImageTk.PhotoImage(Image.open("sunny.png").resize((953, 500), Image.ANTIALIAS))
         elif "rain" in title and "shower" in title:
             img = ImageTk.PhotoImage(Image.open("shower.png").resize((953, 500), Image.ANTIALIAS))
@@ -142,7 +144,7 @@ class voice:
         elif "storm" in title:
             img = ImageTk.PhotoImage(Image.open("thunderstorm.png").resize((953, 500), Image.ANTIALIAS))
         else:
-            img = ImageTk.PhotoImage(Image.open("953x500.png").resize((953, 500), Image.ANTIALIAS))
+            img = ImageTk.PhotoImage(Image.open("base.png").resize((953, 500), Image.ANTIALIAS))
 
 
 
@@ -156,8 +158,20 @@ class voice:
         titles = tk.Label(window, bg='white', text=title)
         titles.configure(font=("DejaVu Sans", 15, "bold"))
 
+
+
+
+        def doi():
+            window.withdraw()
+            toplevel = tk.Toplevel(self.window)  # close the first window
+            toplevel.geometry("953x500")
+            voice(toplevel)
+            speech.speak("")
+
         def printit():
             print(2)
+            p = threading.Thread(target=doi)  # start Text-to-Speech using new Thread
+            p.start()
 
         button = tk.Button(window, text="Search for another city", command=printit)
         button.configure(width=20, activebackground="#F04747", background="#43B581")
@@ -166,6 +180,7 @@ class voice:
 
         label_window = canvas.create_window(953 / 2, 200 / 2, anchor=tk.N, window=titles)
         window.resizable(False, False)
+
 
 
 
